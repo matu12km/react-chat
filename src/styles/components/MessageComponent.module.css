@@ -1,0 +1,23 @@
+.messageComponent {
+    font-size: 6px;
+    width: 45%;
+    height: auto;
+    min-height: 20px;
+    padding: 7px;
+    margin: 4px 7px;
+    border-radius: 7px 7px 7px 7px;
+    background-color: rgb(207, 228, 207);
+    color: black;
+}
+.secondMessageComponent {
+    font-size: 6px;
+    width: 45%;
+    height: auto;
+    min-height: 20px;
+    padding: 7px;
+    margin: 4px 7px;
+    border-radius: 7px 7px 7px 7px;
+    background-color: rgb(187, 211, 255);
+    color: black;
+    margin-left: 193px;
+}

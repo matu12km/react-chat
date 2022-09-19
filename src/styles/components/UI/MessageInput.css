@@ -1,0 +1,13 @@
+.messageInput {
+    width: 80%;
+    height: 30px;
+    border: 1px solid #1a73e8;
+    border-radius: 0 0 0 10px;
+    color: #1a73e8;
+    background-color: beige;
+    padding: 5px 15px;
+
+}
+.messageInput::placeholder {
+    color: #1a73e8;
+}
