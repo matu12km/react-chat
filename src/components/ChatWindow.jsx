@@ -32,7 +32,7 @@ const ChatWindow = ({messages, activeUser, placeholder, interlocutor}) => {
             </div>
             <div>
                 <MessageInput value={message} onChange={e => setMessage(e.target.value)} placeholder={placeholder} />
-                <SendButton onClick={send}>send</SendButton>
+                <SendButton onClick={send}>送信</SendButton>
             </div>
         </div>
     );

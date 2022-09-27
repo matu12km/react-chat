@@ -22,16 +22,16 @@ const RegistrationForm = ({form, setForm, createUser, createReport, setReport}) 
             createUser(newUser)
         }
         else {
-            createReport(`Passwords doesn't macth`)
+            createReport(`パスワードが一致しません`)
         }
     }
 
     return (
         <form onSubmit={register} className={!form ? cl.active : cl.nonActive}>
-            <AuthInput value={username} onChange={(e) => setUsername(e.target.value)} placeholder={'Your username'} />
-            <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder={'Your password'} />
-            <PasswordInput value={checkPassword} onChange={(e) => setCheckPassword(e.target.value)} placeholder={'Repeat your username'} />
-            <SubmitButton>Sign Up</SubmitButton>
+            <AuthInput value={username} onChange={(e) => setUsername(e.target.value)} placeholder={'ユーザー名'} />
+            <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder={'パスワード'} />
+            <PasswordInput value={checkPassword} onChange={(e) => setCheckPassword(e.target.value)} placeholder={'パスワード確認用'} />
+            <SubmitButton>アカウント作成</SubmitButton>
         </form>
     )
 }

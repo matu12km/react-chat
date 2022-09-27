@@ -37,9 +37,9 @@ const LoginForm = ({users, setModal, setActiveUser, form, createReport, setRepor
     :
     (
         <form onSubmit={login} className={form ? cl.active : cl.nonActive}>
-            <AuthInput value={username} onChange={(e) => setUsername(e.target.value)} placeholder={'Your username'}/>
-            <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder={'Your password'} />
-            <SubmitButton>Sign In</SubmitButton>
+            <AuthInput value={username} onChange={(e) => setUsername(e.target.value)} placeholder={'ユーザー名'}/>
+            <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder={'パスワード'} />
+            <SubmitButton>ログイン</SubmitButton>
         </form>
     )
 }

@@ -22,7 +22,7 @@ function App() {
         activeUser,
     ])
     const [modal, setModal] = useState(isAuth ? false : true);
-    const [placeholder, setPlaceholder] = useState('Write a message...')
+    const [placeholder, setPlaceholder] = useState('メッセージを入力してください')
     const [search, setSearch] = useState('')
 
     const friendSearcher = useMemo(() => {
@@ -40,11 +40,11 @@ function App() {
         setChat([...chat, receiver])
     }
 
-    console.log(chat)
+    //console.log(chat)
     
 
 
-    console.log(`${activeUser.name} chats with ${chat.length === 2 ? chat[1].name : 'nobody :('}`)
+    //console.log(`${activeUser.name} chats with ${chat.length === 2 ? chat[1].name : 'nobody :('}`)
 
     return (
         <AuthContext.Provider value={{

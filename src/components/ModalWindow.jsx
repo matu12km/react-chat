@@ -24,7 +24,7 @@ const ModalWindow = ({vision, users, setModal, setActiveUser, createUser}) => {
     return (
         <div className={vision ? cl.modal : cl.nonActive}>
             <div className={cl.modalBox}>
-                <h1 className={cl.modalTitle}>{form ? 'You need to Sign In to start chatting :)' : 'Create new account today !'}</h1>
+                <h1 className={cl.modalTitle}>{form ? 'ログインをしてください' : '新しくアカウントを作成'}</h1>
             </div>
             <div className={cl.formBox}>
                 <LoginForm form={form} users={users} setModal={setModal} setActiveUser={setActiveUser} createReport={createReport} setReport={setReport} />
@@ -32,7 +32,7 @@ const ModalWindow = ({vision, users, setModal, setActiveUser, createUser}) => {
             </div>
             <ReportComponent report={reportMessage} vision={report} />
             <div className={cl.modalBox}>
-                <h1 className={form ? cl.modalSubTitle : cl.nonActive}>Don't have account already ? <span onClick={redirectToRegistration} className={cl.modalLink}>Click here</span>.</h1>
+                <h1 className={form ? cl.modalSubTitle : cl.nonActive}>アカウントがない場合は <span onClick={redirectToRegistration} className={cl.modalLink}>こちら</span>.</h1>
             </div>
         </div>
     )
