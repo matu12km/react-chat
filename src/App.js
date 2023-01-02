@@ -2,6 +2,8 @@ import React, { useState, useMemo } from "react";
 import { BrowserRouter } from "react-router-dom";
 import AuthContext from "./context/index";
 import { firestore } from "./firebase/firebaseConfig";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import { collection } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 /* Router */
 import AppRouter from "./router/AppRouter";
@@ -10,7 +12,7 @@ import "./styles/App.css";
 
 function App() {
   const [isAuth, setAuth] = useState(false);
-  const [users, setUsers] = useState([]);
+  const [users] = useCollectionData(collection(firestore, "userList"));
   const [activeUser, setActiveUser] = useState({});
   const [chat, setChat] = useState([activeUser]);
   const [modal, setModal] = useState(isAuth ? false : true);
@@ -18,14 +20,12 @@ function App() {
     useState("メッセージを入力してください");
   const [search, setSearch] = useState("");
 
-    const auth = getAuth();
-    console.log(auth)
-    onAuthStateChanged(auth, (user) => {
-      
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
-        console.log(user)
+      //console.log(user)
       const uid = user.uid;
       // ...
     } else {
@@ -34,13 +34,7 @@ function App() {
     }
   });
 
-  const friendSearcher = useMemo(() => {
-    return users.filter((user) => user.name.includes(search));
-  }, [search, users]);
 
-  const createUser = (newUser) => {
-    setUsers([...users, newUser]);
-  };
 
   const startChatting = (receiver) => {
     if (chat.length > 1) {
@@ -70,10 +64,9 @@ function App() {
             activeUser={activeUser}
             setActiveUser={setActiveUser}
             setModal={setModal}
-            users={friendSearcher}
+            users={users}
             placeholder={placeholder}
             setPlaceholder={setPlaceholder}
-            createUser={createUser}
             start={startChatting}
             chat={chat}
             search={search}

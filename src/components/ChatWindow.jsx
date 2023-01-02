@@ -9,17 +9,19 @@ import { SendButton } from './UI/SendButton';
 /* Styles */
 import '../styles/components/ChatWindow.css';
 
-const ChatWindow = ({messages, activeUser, placeholder, interlocutor}) => {
+const ChatWindow = ({ messages, activeUser, placeholder, interlocutor }) => {
+    //console.log(interlocutor)
     const {firestore} = useContext(AuthContext)
     const [message, setMessage] = useState('')
 
     const documentID = useFirestoreDocumentId();
     const send = async () => {
-        console.log(activeUser.id)
+        //console.log(activeUser.id)
         const newMessage = {
-            id: Math.floor(Math.random() * (10000 - 1) + 1), body: message, name: activeUser.name, senderID: activeUser.id, recieverID: interlocutor.id, styleID: activeUser.id, date: Date.now()
+            id: Math.floor(Math.random() * (10000 - 1) + 1), body: message, name: activeUser.name, senderID: activeUser.id, recieverID: interlocutor.uid, styleID: activeUser.id, date: Date.now()
         };
         await setDoc(doc(firestore, 'messages', documentID), newMessage)
+        setMessage('')
     }
 
     return (

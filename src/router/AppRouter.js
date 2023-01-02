@@ -13,7 +13,6 @@ function AppRouter({
     setModal,
     activeUser,
     setActiveUser,
-    createUser,
     start,
     chat,
     search,
@@ -45,8 +44,7 @@ function AppRouter({
              vision={modal} 
              users={users} 
              setModal={setModal} 
-             setActiveUser={setActiveUser} 
-             createUser={createUser} />} 
+             setActiveUser={setActiveUser} />} 
             />
         </Routes>
     );

@@ -1,4 +1,4 @@
-import React from 'react'
+import { useMemo } from 'react'
 import { Navigate } from 'react-router';
 
 import FriendsList from './FriendsLits';
@@ -8,11 +8,17 @@ import cl from '../styles/components/ProfileSidebar.module.css'
 
 import avatar from '../styles/images/avatar.png'
 
-const ProfileSidebar = ({isAuth, activeUser, users, start, interlocutor, search, setSearch, setAuth, setModal}) => {
+const ProfileSidebar = ({ isAuth, activeUser, users, start, interlocutor, search, setSearch, setAuth, setModal }) => {
     const logOut = () => {
         setModal(true)
         setAuth(false)
     }
+    const friendSearcher = useMemo(() => {
+        //console.log(users.filter(user => user.name))
+        if (users && users !== '') {
+            return users.filter((user) => user.name.includes(search));
+        }
+    }, [search, users]);
 
     return isAuth ? (
         <div className={cl.profile}>
@@ -22,17 +28,17 @@ const ProfileSidebar = ({isAuth, activeUser, users, start, interlocutor, search,
                     <h1 className={cl.username}>{isAuth ? activeUser.name : 'Anonimous'}</h1>
                     <button onClick={logOut} className={cl.logout}>Log out</button>
                 </div>
-                <SearchInput value={search} onChange={e => setSearch(e.target.value)}/>
+                <SearchInput value={search} onChange={e => setSearch(e.target.value)} />
                 <div>
-                    <FriendsList interlocutor={interlocutor} users={users} start={start} activeUser={activeUser} />
+                    <FriendsList interlocutor={interlocutor} users={friendSearcher} start={start} activeUser={activeUser} />
                 </div>
             </div>
         </div>
     )
-    :
-    (
-        <Navigate to={'/'} />
-    )
+        :
+        (
+            <Navigate to={'/'} />
+        )
 }
 
 export default ProfileSidebar
