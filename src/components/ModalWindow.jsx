@@ -6,7 +6,7 @@ import ReportComponent from './ReportComponent'
 
 import cl from '../styles/components/ModalWindow.module.css'
 
-const ModalWindow = ({vision, users, setModal, setActiveUser, createUser}) => {
+const ModalWindow = ({vision, users, setModal, setActiveUser}) => {
     const [form, setForm] = useState(true)
     const [report, setReport] = useState(false)
     const [reportMessage, setReportMessage] = useState('')
@@ -31,7 +31,7 @@ const ModalWindow = ({vision, users, setModal, setActiveUser, createUser}) => {
             </div>
             <div className={cl.formBox}>
                 <LoginForm form={form} users={users} setModal={setModal} setActiveUser={setActiveUser} createReport={createReport} setReport={setReport} />
-                <RegistrationForm form={form} setModal={setModal} setActiveUser={setActiveUser} createUser={createUser} createReport={createReport} setReport={setReport} />
+                <RegistrationForm form={form} setModal={setModal} setActiveUser={setActiveUser} createReport={createReport} setReport={setReport} />
             </div>
             <ReportComponent report={reportMessage} vision={report} />
             <div className={cl.modalBox}>

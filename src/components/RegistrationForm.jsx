@@ -12,7 +12,7 @@ import useFirestoreDocumentId from '../hooks/useFirestoreDocumentId'
 import cl from '../styles/components/LoginForm.module.css'
 import { EmailInput } from './UI/EmailInput';
 
-const RegistrationForm = ({ form, setModal, setActiveUser, setForm, createUser, createReport, setReport }) => {
+const RegistrationForm = ({ form, setModal, setActiveUser, setForm, createReport, setReport }) => {
     const { isAuth, setAuth,firestore } = useContext(AuthContext);
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')

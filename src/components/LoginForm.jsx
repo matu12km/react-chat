@@ -23,7 +23,8 @@ export const LoginForm = ({ users, setModal, setActiveUser, form, createReport, 
         signInWithPopup(auth, provider).then((res) => {
             console.log(res)
             console.log({ id: res.user.uid, name: res.user.displayName });
-            setActiveUser({ id: res.user.uid, name: res.user.displayName });
+            const user = res.user
+            setActiveUser({ id: user.uid, name: user.displayName });
             setAuth(true);
             setModal(false);
             setReport(false)

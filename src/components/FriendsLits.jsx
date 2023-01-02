@@ -1,10 +1,9 @@
-import React from 'react'
-
 import Friend from './Friend'
 
 import cl from '../styles/components/FriendsList.module.css'
 
 const FriendsList = ({users, activeUser, start, interlocutor}) => {
+    
     return (
         <div className={cl.users}>
             {users.map((user, index) => 
