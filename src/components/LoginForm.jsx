@@ -1,47 +1,73 @@
-import React , {useContext, useState} from 'react'
+import React, { useContext, useState } from 'react'
 import AuthContext from '../context'
 import { Navigate } from 'react-router'
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signInWithPopup, signOut, signInWithEmailAndPassword } from "firebase/auth";
+import { auth, provider } from '../firebase/firebaseConfig';
 
 import AuthInput from './UI/AuthInput'
 import PasswordInput from './UI/PasswordInput'
 import SubmitButton from './UI/SubmitButton'
 
 import cl from '../styles/components/LoginForm.module.css'
+import { EmailInput } from './UI/EmailInput';
 
-const LoginForm = ({users, setModal, setActiveUser, form, createReport, setReport}) => {
-    const {isAuth, setAuth} = useContext(AuthContext)
-    const [username, setUsername] = useState('')
+export const LoginForm = ({ users, setModal, setActiveUser, form, createReport, setReport }) => {
+    const { isAuth, setAuth } = useContext(AuthContext);
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
-    const login = (e) => {
+    const [user, loading, error] = useAuthState(auth);
+    const googleSignIn = () => {
+        console.log(auth);
+        signInWithPopup(auth, provider).then((res) => {
+            console.log(res)
+            console.log({ id: res.user.uid, name: res.user.displayName });
+            setActiveUser({ id: res.user.uid, name: res.user.displayName });
+            setAuth(true);
+            setModal(false);
+            setReport(false)
+        })
+            .catch((err) => alert(err.message));
+    };
+    const emailPasswordSignIn = (e) => {
         e.preventDefault();
-        let c = 0
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].name === username && users[i].password === password) {
-                setActiveUser(users[i])
-                setAuth(true)
-                setModal(false)
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                console.log(userCredential)
+                const user = userCredential.user;
+                setActiveUser({ id: user.uid, name: user.displayName });
+                setAuth(true);
+                setModal(false);
                 setReport(false)
-                c++
-            }
-        }
-
-        if (c === 0) {
-            createReport('Incorrect username or password')
-        }
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorCode + ':' + errorMessage)
+            });
     }
 
-    return isAuth ? (
-        <Navigate to={'/main'} />
-    ) 
-    :
-    (
-        <form onSubmit={login} className={form ? cl.active : cl.nonActive}>
-            <AuthInput value={username} onChange={(e) => setUsername(e.target.value)} placeholder={'Your username'}/>
-            <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder={'Your password'} />
-            <SubmitButton>Sign In</SubmitButton>
-        </form>
-    )
-}
+    return (
+        <div className="app">
+            {isAuth ? (
+                console.log('login'),
+                <button onClick={() => signOut(auth)}>Sign Out</button>,
+                <Navigate to={'/main'} />
+            ) : (
+                <>
+                    <form onSubmit={emailPasswordSignIn} className={form ? cl.active : cl.nonActive}>
+                        <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} placeholder={'メールアドレス'} />
+                        <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder={'パスワード'} />
+                        <SubmitButton>ログイン</SubmitButton>
+                    </form>
+                    <div style={{ margin: '1rem 0' }} className={form ? cl.active : cl.nonActive}>
+                        <SubmitButton onClick={googleSignIn}>Googleアカウントでログイン</SubmitButton>
+                    </div>
 
-export default LoginForm
+                </>
+            )}
+        </div>
+    );
+}
