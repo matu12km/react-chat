@@ -15,6 +15,7 @@ const ChatWindow = ({messages, activeUser, placeholder, interlocutor}) => {
 
     const documentID = useFirestoreDocumentId();
     const send = async () => {
+        console.log(activeUser.id)
         const newMessage = {
             id: Math.floor(Math.random() * (10000 - 1) + 1), body: message, name: activeUser.name, senderID: activeUser.id, recieverID: interlocutor.id, styleID: activeUser.id, date: Date.now()
         };
@@ -24,8 +25,8 @@ const ChatWindow = ({messages, activeUser, placeholder, interlocutor}) => {
     return (
         <div className="mainWindow">
             <div className="mainWindow_header">
-                <h1 className="mainWindow_title">talk me</h1>
-                <h2 className="mainWindow_interlocutor">{interlocutor.name}</h2>
+                
+                <h1 className="mainWindow_title">{interlocutor.name}</h1>
             </div>
             <div className="chatWindow">
                 <Messages messages={messages} activeUser={activeUser} interlocutor={interlocutor} />
