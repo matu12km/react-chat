@@ -1,13 +1,10 @@
 .modal {
-    width: 700px;
-    height: 500px;
-    top: 0;
-    left: 26.4%;
-    position: absolute;
+    width: 100%;
+    height: auto;
     z-index: 2;
     background-color: rgba(255, 255, 255, 0.8);
 
-    margin: 80px auto 0;
+    margin: 0 auto;
     border-radius: 20px;
     padding: 10px;
 

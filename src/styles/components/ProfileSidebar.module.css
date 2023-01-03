@@ -1,7 +1,5 @@
 .profile {
-    width: 37%;
-    height: 97.5%;
-
+    width: 45%;
     border: 1px solid #1a73e8;
 
     margin-right: 10px;
@@ -22,7 +20,7 @@
 .username {
     color: #1a73e8;
     text-align: center;
-    font-size: 20px;
+    font-size: 1rem;
     margin: 7px 0;
 }
 .logout {
