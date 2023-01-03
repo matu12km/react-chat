@@ -13,7 +13,7 @@ import cl from '../styles/components/LoginForm.module.css'
 import { EmailInput } from './UI/EmailInput';
 
 const RegistrationForm = ({ form, setModal, setActiveUser, setForm, createReport, setReport }) => {
-    const { isAuth, setAuth,firestore } = useContext(AuthContext);
+    const { isAuth, setAuth, firestore } = useContext(AuthContext);
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -22,39 +22,60 @@ const RegistrationForm = ({ form, setModal, setActiveUser, setForm, createReport
     const documentID = useFirestoreDocumentId();
     const register = (e) => {
         e.preventDefault();
-        if (password === checkPassword) {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in 
-                    console.log(userCredential)
-                    const user = userCredential.user;
-                    updateProfile(auth.currentUser, {
-                        displayName:username
-                    }).then((response) => {
-                        //ユーザー名とuidを保存
-                        const newMessage = {
-                            id: Math.floor(Math.random() * (10000 - 1) + 1), uid: user.uid, name: username, date: Date.now()
-                        };
-                        setDoc(doc(firestore, 'userList', documentID), newMessage)
-                    }).catch((error) => {
-                        console.log(error)
+        if (username !== '' && email !== '' && password !== '' && checkPassword !=='') {
+            if (password === checkPassword) {
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        // Signed in 
+                        console.log(userCredential)
+                        const user = userCredential.user;
+                        updateProfile(auth.currentUser, {
+                            displayName: username
+                        }).then((response) => {
+                            //ユーザー名とuidを保存
+                            const newMessage = {
+                                id: Math.floor(Math.random() * (10000 - 1) + 1), uid: user.uid, name: username, date: Date.now()
+                            };
+                            setDoc(doc(firestore, 'userList', documentID), newMessage)
+                        }).catch((error) => {
+                            console.log(error)
+                        })
+                        console.log({ id: user.uid, name: username })
+                        setActiveUser({ id: user.uid, name: username });
+                        setAuth(true);
+                        setModal(false);
+                        setReport(false)
                     })
-                    console.log({ id: user.uid, name: username })
-                    setActiveUser({ id: user.uid, name: username });
-                    setAuth(true);
-                    setModal(false);
-                    setReport(false)
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // ..
-                });
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+                        console.log(errorCode)
+                        if (errorCode === 'auth/email-already-in-use') {
+                            createReport('既に登録済みのメールアドレスです。')
+                        } else {
+                            createReport('エラーが発生しました。')
+                            console.log(errorCode)
+                            console.log(errorMessage)
+                        }
+                    });
 
 
-        }
-        else {
-            createReport(`パスワードが一致しません`)
+            }
+            else {
+                createReport(`パスワードが一致しません`)
+            }
+
+        } else {
+            if (username === '') {
+                createReport('ユーザー名が未入力です')
+            } else if (email !== '') {
+                createReport('メールアドレスが未入力です')
+            } else if (password !== '') {
+                createReport('パスワードが未入力です')
+            } else if (checkPassword !== '') {
+                createReport('パスワード確認用が未入力です')
+            }
+            
         }
     }
     // register.addEventListener('click', function(e) {

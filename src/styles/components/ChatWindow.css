@@ -1,18 +1,18 @@
 .mainWindow {
     position: relative;
     width: 100%;
-    height: 97.7%;
+    height:100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-width: 360px;
-    margin-left: 10px;
+    margin: 0 auto;
     border-radius: 10px;
 }
 .chatWindow {
     border: 1px solid #1a73e8;
     border-bottom: none;
-    height: 100%;
+    height: 65vh;
+    overflow-y: scroll;
 }
 .mainWindow_header {
     background-color: #1a73e8;
@@ -25,7 +25,6 @@
     align-items: center;
 }
 .mainWindow_title {
-    text-transform: uppercase;
     font-size: 27px;
 }
 .mainWindow_interlocutor {

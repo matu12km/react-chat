@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Navigate } from 'react-router';
-
+import { slide as Side } from 'react-burger-menu'
 import FriendsList from './FriendsLits';
 import SearchInput from './UI/SearchInput';
 
