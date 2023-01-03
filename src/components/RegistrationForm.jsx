@@ -68,11 +68,11 @@ const RegistrationForm = ({ form, setModal, setActiveUser, setForm, createReport
         } else {
             if (username === '') {
                 createReport('ユーザー名が未入力です')
-            } else if (email !== '') {
+            } else if (email === '') {
                 createReport('メールアドレスが未入力です')
-            } else if (password !== '') {
+            } else if (password === '') {
                 createReport('パスワードが未入力です')
-            } else if (checkPassword !== '') {
+            } else if (checkPassword === '') {
                 createReport('パスワード確認用が未入力です')
             }
             

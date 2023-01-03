@@ -75,9 +75,9 @@ export const LoginForm = ({ users, setModal, setActiveUser, form, createReport, 
                 //alert(errorCode + ':' + errorMessage)
             });
         } else {
-            if (email !== '') {
+            if (email === '') {
                 createReport('メールアドレスが未入力です。')
-            } else if (password !== '') {
+            } else if (password === '') {
                 createReport('パスワードが未入力です')
             }
         }
